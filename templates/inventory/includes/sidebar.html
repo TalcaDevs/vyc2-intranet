@@ -1,0 +1,50 @@
+<div class="sidebar-sticky pt-3">
+    <ul class="nav flex-column">
+        <li class="nav-item">
+            <a class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" 
+               href="{% url 'inventory:dashboard' %}">
+                <i class="bi bi-speedometer2"></i> Dashboard
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {% if 'part' in request.resolver_match.url_name %}active{% endif %}" 
+               href="{% url 'inventory:part_list' %}">
+                <i class="bi bi-tools"></i> Parts
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {% if 'category' in request.resolver_match.url_name %}active{% endif %}" 
+               href="{% url 'inventory:category_list' %}">
+                <i class="bi bi-diagram-3"></i> Categories
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {% if 'supplier' in request.resolver_match.url_name %}active{% endif %}" 
+               href="{% url 'inventory:supplier_list' %}">
+                <i class="bi bi-truck"></i> Suppliers
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'inventory:add_movement' %}">
+                <i class="bi bi-arrow-left-right"></i> Stock Movement
+            </a>
+        </li>
+        
+        {% if user.is_staff or user.role == 'admin' %}
+        <li class="nav-header mt-3">
+            <span class="nav-link text-muted">Administration</span>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link {% if 'user' in request.resolver_match.url_name %}active{% endif %}" 
+               href="{% url 'authentication:user_list' %}">
+                <i class="bi bi-people"></i> Users
+            </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'admin:index' %}">
+                <i class="bi bi-gear"></i> Admin Panel
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+</div>

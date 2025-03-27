@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Logged Out - Workshop Inventory{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+        <div class="card shadow-sm mt-5">
+            <div class="card-header bg-primary text-white text-center py-3">
+                <h4 class="mb-0">Workshop Inventory</h4>
+            </div>
+            <div class="card-body p-4 text-center">
+                <h5 class="card-title mb-4">You have been logged out</h5>
+                <p class="mb-4">Thank you for using our system. You have been successfully logged out.</p>
+                <a href="{% url 'authentication:login' %}" class="btn btn-primary">Iniciar sesión nuevamente</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
