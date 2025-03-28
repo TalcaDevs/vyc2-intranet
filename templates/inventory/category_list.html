@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Categories - Workshop Inventory{% endblock %}
-{% block header_title %}Categories{% endblock %}
+{% block title %}Categorías - Vyc Ingeniería{% endblock %}
+{% block header_title %}Categorías{% endblock %}
 
 {% block content %}
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-    <h1 class="h2">Categories</h1>
+    <h1 class="h2">Categorías</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
         <a href="{% url 'inventory:category_add' %}" class="btn btn-sm btn-primary">
-            <i class="bi bi-plus-circle"></i> Add New Category
+            <i class="bi bi-plus-circle"></i> Agregar nueva categoría
         </a>
     </div>
 </div>
@@ -19,9 +19,9 @@
         <table class="table table-hover">
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Description</th>
-                    <th>Created</th>
+                    <th>Nombre</th>
+                    <th>Descripción</th>
+                    <th>Creado</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,7 +37,7 @@
     </div>
 {% else %}
     <div class="alert alert-info">
-        No categories found. <a href="{% url 'inventory:category_add' %}" class="alert-link">Add your first category</a>.
+        Categorías no encontradas <a href="{% url 'inventory:category_add' %}" class="alert-link">Agrega tu primera categoría</a>.
     </div>
 {% endif %}
 {% endblock %}

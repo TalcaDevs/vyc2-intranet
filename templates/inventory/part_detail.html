@@ -3,7 +3,7 @@
 
 {% block title %}{{ part.name }} - Workshop Inventory{% endblock %}
 
-{% block header_title %}Part Details{% endblock %}
+{% block header_title %}Detalles de la Pieza{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/part_detail.css' %}">
@@ -14,13 +14,13 @@
     <h1 class="h2">{{ part.name }}</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
         <a href="{% url 'inventory:part_list' %}" class="btn btn-sm btn-outline-secondary me-2">
-            <i class="bi bi-arrow-left me-1"></i> Back to Parts
+            <i class="bi bi-arrow-left me-1"></i> Volver a Piezas
         </a>
         <a href="{% url 'inventory:part_edit' part.id %}" class="btn btn-sm btn-outline-primary me-2">
-            <i class="bi bi-pencil me-1"></i> Edit
+            <i class="bi bi-pencil me-1"></i> Editar
         </a>
         <a href="{% url 'inventory:add_movement_for_part' part.id %}" class="btn btn-sm btn-primary">
-            <i class="bi bi-arrow-left-right me-1"></i> Record Movement
+            <i class="bi bi-arrow-left-right me-1"></i> Registrar Movimiento
         </a>
     </div>
 </div>
@@ -30,7 +30,7 @@
     <div class="col-lg-7 mb-4">
         <div class="card border-0 shadow-sm h-100">
             <div class="card-header bg-white py-3">
-                <h5 class="card-title mb-0"><i class="bi bi-info-circle me-2"></i>Part Information</h5>
+                <h5 class="card-title mb-0"><i class="bi bi-info-circle me-2"></i>Información de la Pieza</h5>
             </div>
             <div class="card-body">
                 <div class="row mb-4">
@@ -48,18 +48,18 @@
                             <div class="card-body py-2 px-3">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <div>
-                                        <h6 class="mb-0">Stock Status</h6>
+                                        <h6 class="mb-0">Estado de Existencias</h6>
                                         <p class="mb-0">
                                             {% if part.is_low_stock %}
-                                                Low Stock
+                                                Existencias Bajas
                                             {% else %}
-                                                In Stock
+                                                En Existencia
                                             {% endif %}
                                         </p>
                                     </div>
                                     <div class="text-center">
                                         <h3 class="mb-0">{{ part.stock_quantity }}</h3>
-                                        <small>of {{ part.minimum_stock }} min</small>
+                                        <small>de {{ part.minimum_stock }} mín</small>
                                     </div>
                                 </div>
                             </div>
@@ -69,54 +69,54 @@
                     <div class="col-md-7">
                         <h3 class="mb-3">{{ part.name }}</h3>
                         <div class="row detail-row">
-                            <div class="col-md-4 detail-label">Part Number</div>
+                            <div class="col-md-4 detail-label">Número de Pieza</div>
                             <div class="col-md-8 detail-value"><code>{{ part.part_number }}</code></div>
                         </div>
                         <div class="row detail-row">
-                            <div class="col-md-4 detail-label">Unit Price</div>
+                            <div class="col-md-4 detail-label">Precio Unitario</div>
                             <div class="col-md-8 detail-value">${{ part.unit_price }}</div>
                         </div>
                         <div class="row detail-row">
-                            <div class="col-md-4 detail-label">Category</div>
+                            <div class="col-md-4 detail-label">Categoría</div>
                             <div class="col-md-8 detail-value">
                                 <span class="badge bg-light text-dark">{{ part.category.name }}</span>
                             </div>
                         </div>
                         <div class="row detail-row">
-                            <div class="col-md-4 detail-label">Supplier</div>
+                            <div class="col-md-4 detail-label">Proveedor</div>
                             <div class="col-md-8 detail-value">
                                 {% if part.supplier %}
                                     <a href="#" class="text-decoration-none">{{ part.supplier.name }}</a>
                                 {% else %}
-                                    <span class="text-muted">Not specified</span>
+                                    <span class="text-muted">No especificado</span>
                                 {% endif %}
                             </div>
                         </div>
                         <div class="row detail-row">
-                            <div class="col-md-4 detail-label">Storage Location</div>
+                            <div class="col-md-4 detail-label">Ubicación de Almacenamiento</div>
                             <div class="col-md-8 detail-value">
                                 {% if part.location %}
                                     {{ part.location }}
                                 {% else %}
-                                    <span class="text-muted">Not specified</span>
+                                    <span class="text-muted">No especificada</span>
                                 {% endif %}
                             </div>
                         </div>
                         <div class="row detail-row">
-                            <div class="col-md-4 detail-label">Created</div>
+                            <div class="col-md-4 detail-label">Creada</div>
                             <div class="col-md-8 detail-value">{{ part.created_at|date:"M d, Y" }}</div>
                         </div>
                         <div class="row detail-row">
-                            <div class="col-md-4 detail-label">Last Updated</div>
+                            <div class="col-md-4 detail-label">Última Actualización</div>
                             <div class="col-md-8 detail-value">{{ part.updated_at|date:"M d, Y" }}</div>
                         </div>
                         <div class="row detail-row">
-                            <div class="col-md-4 detail-label">Status</div>
+                            <div class="col-md-4 detail-label">Estado</div>
                             <div class="col-md-8 detail-value">
                                 {% if part.is_active %}
-                                    <span class="badge bg-success">Active</span>
+                                    <span class="badge bg-success">Activa</span>
                                 {% else %}
-                                    <span class="badge bg-danger">Inactive</span>
+                                    <span class="badge bg-danger">Inactiva</span>
                                 {% endif %}
                             </div>
                         </div>
@@ -125,7 +125,7 @@
                 
                 {% if part.description %}
                 <div class="mt-3">
-                    <h6 class="detail-label">Description</h6>
+                    <h6 class="detail-label">Descripción</h6>
                     <p class="mt-2">{{ part.description }}</p>
                 </div>
                 {% endif %}
@@ -137,9 +137,9 @@
     <div class="col-lg-5 mb-4">
         <div class="card border-0 shadow-sm h-100">
             <div class="card-header bg-white py-3 d-flex justify-content-between align-items-center">
-                <h5 class="card-title mb-0"><i class="bi bi-clock-history me-2"></i>Stock Movement History</h5>
+                <h5 class="card-title mb-0"><i class="bi bi-clock-history me-2"></i>Historial de Movimientos</h5>
                 <a href="{% url 'inventory:add_movement_for_part' part.id %}" class="btn btn-sm btn-primary">
-                    <i class="bi bi-plus-circle me-1"></i> New Movement
+                    <i class="bi bi-plus-circle me-1"></i> Nuevo Movimiento
                 </a>
             </div>
             <div class="card-body">
@@ -148,10 +148,10 @@
                         <table class="table table-hover">
                             <thead class="table-light">
                                 <tr>
-                                    <th>Date</th>
-                                    <th>Type</th>
-                                    <th>Quantity</th>
-                                    <th>User</th>
+                                    <th>Fecha</th>
+                                    <th>Tipo</th>
+                                    <th>Cantidad</th>
+                                    <th>Usuario</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -163,11 +163,11 @@
                                         </td>
                                         <td>
                                             {% if movement.movement_type == 'in' %}
-                                                <span class="badge bg-success movement-badge">Stock In</span>
+                                                <span class="badge bg-success movement-badge">Entrada</span>
                                             {% elif movement.movement_type == 'out' %}
-                                                <span class="badge bg-warning movement-badge">Stock Out</span>
+                                                <span class="badge bg-warning movement-badge">Salida</span>
                                             {% else %}
-                                                <span class="badge bg-secondary movement-badge">Adjustment</span>
+                                                <span class="badge bg-secondary movement-badge">Ajuste</span>
                                             {% endif %}
                                             {% if movement.reference %}
                                                 <div class="small text-muted mt-1">Ref: {{ movement.reference }}</div>
@@ -189,7 +189,7 @@
                     {% if movements.count > 10 %}
                         <div class="text-center mt-3">
                             <button class="btn btn-outline-primary btn-sm" id="show-all-movements">
-                                <i class="bi bi-list me-1"></i> Show All Movements
+                                <i class="bi bi-list me-1"></i> Mostrar Todos los Movimientos
                             </button>
                         </div>
                     {% endif %}
@@ -197,9 +197,9 @@
                     <div class="no-movement">
                         <div class="text-center">
                             <i class="bi bi-clock-history text-muted mb-2" style="font-size: 2rem;"></i>
-                            <p class="mb-2">No movement history for this part.</p>
+                            <p class="mb-2">No hay historial de movimientos para esta pieza.</p>
                             <a href="{% url 'inventory:add_movement_for_part' part.id %}" class="btn btn-sm btn-outline-primary">
-                                <i class="bi bi-plus-circle me-1"></i> Record First Movement
+                                <i class="bi bi-plus-circle me-1"></i> Registrar Primer Movimiento
                             </a>
                         </div>
                     </div>
@@ -215,12 +215,12 @@
         <ul class="nav nav-tabs card-header-tabs" id="partDetailTabs" role="tablist">
             <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="related-tab" data-bs-toggle="tab" data-bs-target="#related-tab-pane" type="button" role="tab" aria-controls="related-tab-pane" aria-selected="true">
-                    <i class="bi bi-link-45deg me-1"></i>Related Parts
+                    <i class="bi bi-link-45deg me-1"></i>Piezas Relacionadas
                 </button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="notes-tab" data-bs-toggle="tab" data-bs-target="#notes-tab-pane" type="button" role="tab" aria-controls="notes-tab-pane" aria-selected="false">
-                    <i class="bi bi-journal-text me-1"></i>Notes
+                    <i class="bi bi-journal-text me-1"></i>Notas
                 </button>
             </li>
         </ul>
@@ -230,7 +230,7 @@
             <!-- Related parts (same category) -->
             {% with same_category_parts=part.category.parts.all|slice:":6" %}
                 {% if same_category_parts.count > 1 %}
-                    <h6 class="mb-3">Other parts in the same category</h6>
+                    <h6 class="mb-3">Otras piezas en la misma categoría</h6>
                     <div class="row row-cols-1 row-cols-md-3 g-3">
                         {% for related_part in same_category_parts %}
                             {% if related_part.id != part.id %}
@@ -259,7 +259,7 @@
                                                     <div class="d-flex justify-content-between">
                                                         <span>${{ related_part.unit_price }}</span>
                                                         <span class="{% if related_part.is_low_stock %}text-danger{% else %}text-success{% endif %}">
-                                                            {{ related_part.stock_quantity }} in stock
+                                                            {{ related_part.stock_quantity }} en existencia
                                                         </span>
                                                     </div>
                                                 </div>
@@ -273,7 +273,7 @@
                 {% else %}
                     <div class="alert alert-info m-3">
                         <i class="bi bi-info-circle me-2"></i>
-                        No other parts in the "{{ part.category.name }}" category.
+                        No hay otras piezas en la categoría "{{ part.category.name }}".
                     </div>
                 {% endif %}
             {% endwith %}
@@ -282,7 +282,7 @@
             <!-- Notes tab (could be added in future functionality) -->
             <div class="alert alert-secondary m-3">
                 <i class="bi bi-info-circle me-2"></i>
-                Notes functionality can be implemented in a future update.
+                La funcionalidad de notas se implementará en una actualización futura.
             </div>
         </div>
     </div>

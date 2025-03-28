@@ -284,7 +284,6 @@ def search_view(request):
 # API Views
 @login_required
 def part_detail_api(request, pk):
-    """API endpoint to get part details for AJAX calls"""
     try:
         part = get_object_or_404(Part, pk=pk)
         data = {

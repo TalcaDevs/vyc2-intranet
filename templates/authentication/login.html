@@ -14,21 +14,21 @@
             <div class="auth-logo">
                 <i class="bi bi-tools"></i>
             </div>
-            <h2 class="auth-title">Workshop Inventory</h2>
-            <p class="auth-subtitle">Inventory Management System</p>
+            <h2 class="auth-title">Vyc Ingeniería</h2>
+            <p class="auth-subtitle">Sistema de inventario</p>
         </div>
         
         <div class="auth-card">
             <div class="auth-card-header">
-                <h4>Welcome Back</h4>
-                <p>Sign in to continue to Dashboard</p>
+                <h4>Bienvenido de vuelta</h4>
+                <p>Ingresa para continuar al Dashboard</p>
             </div>
             
             <div class="auth-card-body">
                 {% if form.errors %}
                     <div class="auth-alert">
                         <i class="bi bi-exclamation-triangle-fill"></i>
-                        <span>Your username and password didn't match. Please try again.</span>
+                        <span>Tu usuario y contraseña no coinciden. Porfavor intenta denuevo.</span>
                     </div>
                 {% endif %}
                 
@@ -36,7 +36,7 @@
                     {% csrf_token %}
                     
                     <div class="form-group">
-                        <label for="id_username">Username</label>
+                        <label for="id_username">Usuario</label>
                         <div class="input-group">
                             <span class="input-icon">
                                 <i class="bi bi-person"></i>
@@ -47,8 +47,8 @@
                     
                     <div class="form-group">
                         <div class="d-flex justify-content-between">
-                            <label for="id_password">Password</label>
-                            <a href="#" class="auth-forgot-link">Forgot password?</a>
+                            <label for="id_password">Contraseña</label>
+                            <a href="#" class="auth-forgot-link"></a>
                         </div>
                         <div class="input-group">
                             <span class="input-icon">
@@ -60,14 +60,15 @@
                             </button>
                         </div>
                     </div>
-                    
+                    <!--
                     <div class="form-check">
                         <input type="checkbox" class="form-check-input" id="remember-me">
                         <label class="form-check-label" for="remember-me">Remember me</label>
                     </div>
+                        -->
                     
                     <button type="submit" class="auth-button">
-                        <span>Sign In</span>
+                        <span>Iniciar sesión</span>
                         <i class="bi bi-arrow-right"></i>
                     </button>
                 </form>
@@ -75,7 +76,7 @@
         </div>
         
         <p class="auth-copyright">
-            &copy; {% now "Y" %} Workshop Inventory Management System
+            &copy; {% now "Y" %} TalcaDevs
         </p>
     </div>
 </div>

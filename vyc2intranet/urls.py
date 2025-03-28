@@ -20,9 +20,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.views.generic import RedirectView
 from django.contrib.auth.views import LoginView
+from django.contrib.auth.views import LogoutView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # Añade esta línea específicamente:
+    path('accounts/logout/', LogoutView.as_view(next_page='/'), name='logout'),
     path('', LoginView.as_view(template_name='authentication/login.html'), name='root_login'),
     path('accounts/', include('authentication.urls')),
     path('inventory/', include('inventory.urls')),

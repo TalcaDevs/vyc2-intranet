@@ -12,7 +12,7 @@ register = template.Library()
 def stock_status_badge(part):
     """Display a colored badge based on stock status"""
     if part.is_low_stock:
-        return format_html('<span class="badge bg-danger">Low Stock: {}</span>', part.stock_quantity)
+        return format_html('<span class="badge bg-danger">Stock bajo: {}</span>', part.stock_quantity)
     else:
         return format_html('<span class="badge bg-success">{}</span>', part.stock_quantity)
 
@@ -20,16 +20,16 @@ def stock_status_badge(part):
 def movement_type_badge(movement_type):
     """Display a colored badge based on movement type"""
     if movement_type == 'in':
-        return format_html('<span class="badge bg-success">Stock In</span>')
+        return format_html('<span class="badge bg-success">Ingresar stock</span>')
     elif movement_type == 'out':
-        return format_html('<span class="badge bg-warning">Stock Out</span>')
+        return format_html('<span class="badge bg-warning">Stock agotado</span>')
     else:
-        return format_html('<span class="badge bg-secondary">Adjustment</span>')
+        return format_html('<span class="badge bg-secondary">Ajuste</span>')
 
 @register.filter
 def active_status_badge(is_active):
     """Display a colored badge based on active status"""
     if is_active:
-        return format_html('<span class="badge bg-success">Active</span>')
+        return format_html('<span class="badge bg-success">Activo</span>')
     else:
-        return format_html('<span class="badge bg-danger">Inactive</span>')
+        return format_html('<span class="badge bg-danger">Inactivo</span>')

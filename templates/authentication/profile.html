@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}My Profile - Workshop Inventory{% endblock %}
+{% block title %}Mi perfil - Vyc Ingeniería{% endblock %}
 
-{% block header_title %}My Profile{% endblock %}
+{% block header_title %}Mi perfil{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/profile.css' %}">
@@ -35,7 +35,7 @@
                             </div>
                             <div>
                                 <h5 class="mb-0">{{ user.stock_movements.count }}</h5>
-                                <p class="text-muted mb-0">Stock Movements</p>
+                                <p class="text-muted mb-0">Movimientos de stock</p>
                             </div>
                         </div>
                     </div>
@@ -48,7 +48,7 @@
                             </div>
                             <div>
                                 <h5 class="mb-0">{{ user.date_joined|date:"M d, Y" }}</h5>
-                                <p class="text-muted mb-0">Member Since</p>
+                                <p class="text-muted mb-0">Miembro desde</p>
                             </div>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
                             </div>
                             <div>
                                 <h5 class="mb-0">{{ user.last_login|date:"M d, Y" }}</h5>
-                                <p class="text-muted mb-0">Last Login</p>
+                                <p class="text-muted mb-0">Última conexión</p>
                             </div>
                         </div>
                     </div>

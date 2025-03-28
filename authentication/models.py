@@ -5,10 +5,10 @@ from django.utils.translation import gettext_lazy as _
 class WorkshopUser(AbstractUser):
     """Custom User Model for workshop employees"""
     ROLE_CHOICES = [
-        ('admin', _('Administrator')),
-        ('mechanic', _('Mechanic')),
-        ('inventory_manager', _('Inventory Manager')),
-        ('receptionist', _('Receptionist')),
+        ('admin', _('Administración')),
+        ('mechanic', _('Mecanico')),
+        ('inventory_manager', _('Encargado de inventario')),
+        ('receptionist', _('Recepcionista')),
     ]
     
     phone = models.CharField(_("Phone Number"), max_length=20, blank=True)

@@ -4,7 +4,7 @@
     <div class="sidebar-header">
         <div class="sidebar-logo">
             <i class="bi bi-tools"></i>
-            <span class="sidebar-brand">Workshop Inventory</span>
+            <span class="sidebar-brand">Vyc Ingeniería</span>
         </div>
         <button class="btn toggle-sidebar-btn d-md-none" id="toggleSidebarBtn">
             <i class="bi bi-x"></i>
@@ -41,47 +41,47 @@
                     <a class="nav-link {% if 'part' in request.resolver_match.url_name %}active{% endif %}" 
                        href="{% url 'inventory:part_list' %}">
                         <i class="bi bi-tools"></i> 
-                        <span>Parts</span>
+                        <span>Piezas</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {% if 'category' in request.resolver_match.url_name %}active{% endif %}" 
                        href="{% url 'inventory:category_list' %}">
                         <i class="bi bi-diagram-3"></i> 
-                        <span>Categories</span>
+                        <span>Categorías</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {% if 'supplier' in request.resolver_match.url_name %}active{% endif %}" 
                        href="{% url 'inventory:supplier_list' %}">
                         <i class="bi bi-truck"></i> 
-                        <span>Suppliers</span>
+                        <span>Proveedores</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {% if 'movement' in request.resolver_match.url_name %}active{% endif %}" 
                        href="{% url 'inventory:add_movement' %}">
                         <i class="bi bi-arrow-left-right"></i> 
-                        <span>Stock Movement</span>
+                        <span>Movimiento de stock</span>
                     </a>
                 </li>
                 
                 {% if user.is_staff or user.role == 'admin' %}
                 <li class="nav-divider"></li>
                 <li class="nav-header">
-                    <span>Administration</span>
+                    <span>Administración</span>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {% if 'user' in request.resolver_match.url_name %}active{% endif %}" 
                        href="{% url 'authentication:user_list' %}">
                         <i class="bi bi-people"></i> 
-                        <span>Users</span>
+                        <span>Usuarios</span>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'admin:index' %}">
                         <i class="bi bi-gear"></i> 
-                        <span>Admin Panel</span>
+                        <span>Panel Admin</span>
                     </a>
                 </li>
                 {% endif %}
@@ -92,12 +92,15 @@
     <div class="sidebar-footer">
         <a href="{% url 'authentication:profile' %}" class="sidebar-footer-link">
             <i class="bi bi-person-circle"></i> 
-            <span>My Profile</span>
+            <span>Mi perfil</span>
         </a>
-        <a href="{% url 'authentication:logout' %}" class="sidebar-footer-link">
-            <i class="bi bi-box-arrow-right"></i> 
-            <span>Logout</span>
-        </a>
+        <form action="{% url 'logout' %}" method="post" class="mb-0">
+            {% csrf_token %}
+            <button type="submit" class="sidebar-footer-link bg-transparent border-0">
+                <i class="bi bi-box-arrow-right"></i> 
+                <span>Cerrar Sesión</span>
+            </button>
+        </form>
     </div>
 </div>
 

@@ -8,7 +8,7 @@ from inventory.models import Category, Supplier, Part, StockMovement
 from authentication.models import WorkshopUser
 
 class Command(BaseCommand):
-    help = 'Set up groups and permissions for the inventory management system'
+    help = 'Establecer grupos y permisos para el sistema de gestión de inventario'
 
     def handle(self, *args, **options):
         # Create groups if they don't exist
@@ -88,4 +88,4 @@ class Command(BaseCommand):
             elif user.role == 'receptionist':
                 user.groups.add(receptionist_group)
         
-        self.stdout.write(self.style.SUCCESS('Successfully set up groups and permissions'))
+        self.stdout.write(self.style.SUCCESS('Configurar correctamente grupos y permisos'))

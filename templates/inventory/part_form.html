@@ -1,21 +1,21 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{% if form.instance.pk %}Edit{% else %}Add{% endif %} Part - Workshop Inventory{% endblock %}
+{% block title %}{% if form.instance.pk %}Editar{% else %}Agregar{% endif %} Pieza - Workshop Inventory{% endblock %}
 
-{% block header_title %}{% if form.instance.pk %}Edit{% else %}Add New{% endif %} Part{% endblock %}
+{% block header_title %}{% if form.instance.pk %}Editar{% else %}Agregar Nueva{% endif %} Pieza{% endblock %}
 
 {% block content %}
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-    <h1 class="h2">{% if form.instance.pk %}Edit{% else %}Add New{% endif %} Part</h1>
+    <h1 class="h2">{% if form.instance.pk %}Editar{% else %}Agregar Nueva{% endif %} Pieza</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
         {% if form.instance.pk %}
             <a href="{% url 'inventory:part_detail' form.instance.pk %}" class="btn btn-sm btn-outline-secondary">
-                <i class="bi bi-arrow-left"></i> Back to Part Details
+                <i class="bi bi-arrow-left"></i> Volver a Detalles de la Pieza
             </a>
         {% else %}
             <a href="{% url 'inventory:part_list' %}" class="btn btn-sm btn-outline-secondary">
-                <i class="bi bi-arrow-left"></i> Back to Parts
+                <i class="bi bi-arrow-left"></i> Volver a Piezas
             </a>
         {% endif %}
     </div>
@@ -30,7 +30,7 @@
                     
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="id_name" class="form-label">Name</label>
+                            <label for="id_name" class="form-label">Nombre</label>
                             <input type="text" name="name" id="id_name" class="form-control {% if form.name.errors %}is-invalid{% endif %}" value="{{ form.name.value|default:'' }}" required>
                             {% if form.name.errors %}
                                 <div class="invalid-feedback">
@@ -39,7 +39,7 @@
                             {% endif %}
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="id_part_number" class="form-label">Part Number</label>
+                            <label for="id_part_number" class="form-label">Número de Pieza</label>
                             <input type="text" name="part_number" id="id_part_number" class="form-control {% if form.part_number.errors %}is-invalid{% endif %}" value="{{ form.part_number.value|default:'' }}" required>
                             {% if form.part_number.errors %}
                                 <div class="invalid-feedback">
@@ -50,7 +50,7 @@
                     </div>
                     
                     <div class="mb-3">
-                        <label for="id_description" class="form-label">Description</label>
+                        <label for="id_description" class="form-label">Descripción</label>
                         <textarea name="description" id="id_description" class="form-control {% if form.description.errors %}is-invalid{% endif %}" rows="3">{{ form.description.value|default:'' }}</textarea>
                         {% if form.description.errors %}
                             <div class="invalid-feedback">
@@ -61,7 +61,7 @@
                     
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="id_category" class="form-label">Category</label>
+                            <label for="id_category" class="form-label">Categoría</label>
                             <div class="input-group">
                                 <select name="category" id="id_category" class="form-select {% if form.category.errors %}is-invalid{% endif %}" required>
                                     <option value="">---------</option>
@@ -80,7 +80,7 @@
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="id_supplier" class="form-label">Supplier</label>
+                            <label for="id_supplier" class="form-label">Proveedor</label>
                             <div class="input-group">
                                 <select name="supplier" id="id_supplier" class="form-select {% if form.supplier.errors %}is-invalid{% endif %}">
                                     <option value="">---------</option>
@@ -102,7 +102,7 @@
                     
                     <div class="row">
                         <div class="col-md-4 mb-3">
-                            <label for="id_unit_price" class="form-label">Unit Price</label>
+                            <label for="id_unit_price" class="form-label">Precio Unitario</label>
                             <div class="input-group">
                                 <span class="input-group-text">$</span>
                                 <input type="number" name="unit_price" id="id_unit_price" class="form-control {% if form.unit_price.errors %}is-invalid{% endif %}" value="{{ form.unit_price.value|default:'' }}" step="0.01" min="0" required>
@@ -114,7 +114,7 @@
                             </div>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="id_stock_quantity" class="form-label">Stock Quantity</label>
+                            <label for="id_stock_quantity" class="form-label">Cantidad en Existencia</label>
                             <input type="number" name="stock_quantity" id="id_stock_quantity" class="form-control {% if form.stock_quantity.errors %}is-invalid{% endif %}" value="{{ form.stock_quantity.value|default:'0' }}" min="0" required>
                             {% if form.stock_quantity.errors %}
                                 <div class="invalid-feedback">
@@ -123,7 +123,7 @@
                             {% endif %}
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="id_minimum_stock" class="form-label">Minimum Stock</label>
+                            <label for="id_minimum_stock" class="form-label">Existencia Mínima</label>
                             <input type="number" name="minimum_stock" id="id_minimum_stock" class="form-control {% if form.minimum_stock.errors %}is-invalid{% endif %}" value="{{ form.minimum_stock.value|default:'1' }}" min="0" required>
                             {% if form.minimum_stock.errors %}
                                 <div class="invalid-feedback">
@@ -134,7 +134,7 @@
                     </div>
                     
                     <div class="mb-3">
-                        <label for="id_location" class="form-label">Storage Location</label>
+                        <label for="id_location" class="form-label">Ubicación de Almacenamiento</label>
                         <input type="text" name="location" id="id_location" class="form-control {% if form.location.errors %}is-invalid{% endif %}" value="{{ form.location.value|default:'' }}">
                         {% if form.location.errors %}
                             <div class="invalid-feedback">
@@ -145,7 +145,7 @@
                     
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="id_image" class="form-label">Image</label>
+                            <label for="id_image" class="form-label">Imagen</label>
                             {% if form.instance.image %}
                                 <div class="mb-2">
                                     <img src="{{ form.instance.image.url }}" alt="{{ form.instance.name }}" class="img-thumbnail" style="max-height: 100px;">
@@ -161,19 +161,19 @@
                         <div class="col-md-6 mb-3">
                             <div class="form-check mt-4">
                                 <input type="checkbox" name="is_active" id="id_is_active" class="form-check-input" {% if form.is_active.value %}checked{% endif %}>
-                                <label class="form-check-label" for="id_is_active">Active</label>
+                                <label class="form-check-label" for="id_is_active">Activa</label>
                             </div>
                         </div>
                     </div>
                     
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
                         {% if form.instance.pk %}
-                            <a href="{% url 'inventory:part_detail' form.instance.pk %}" class="btn btn-outline-secondary me-md-2">Cancel</a>
+                            <a href="{% url 'inventory:part_detail' form.instance.pk %}" class="btn btn-outline-secondary me-md-2">Cancelar</a>
                         {% else %}
-                            <a href="{% url 'inventory:part_list' %}" class="btn btn-outline-secondary me-md-2">Cancel</a>
+                            <a href="{% url 'inventory:part_list' %}" class="btn btn-outline-secondary me-md-2">Cancelar</a>
                         {% endif %}
                         <button type="submit" class="btn btn-primary">
-                            {% if form.instance.pk %}Update{% else %}Create{% endif %} Part
+                            {% if form.instance.pk %}Actualizar{% else %}Crear{% endif %} Pieza
                         </button>
                     </div>
                 </form>
@@ -187,24 +187,24 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addCategoryModalLabel">Add New Category</h5>
+                <h5 class="modal-title" id="addCategoryModalLabel">Agregar Nueva Categoría</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="quickCategoryForm">
                     <div class="mb-3">
-                        <label for="quick_category_name" class="form-label">Name</label>
+                        <label for="quick_category_name" class="form-label">Nombre</label>
                         <input type="text" class="form-control" id="quick_category_name" required>
                     </div>
                     <div class="mb-3">
-                        <label for="quick_category_description" class="form-label">Description</label>
+                        <label for="quick_category_description" class="form-label">Descripción</label>
                         <textarea class="form-control" id="quick_category_description" rows="3"></textarea>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="saveQuickCategory">Save Category</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="saveQuickCategory">Guardar Categoría</button>
             </div>
         </div>
     </div>
@@ -215,34 +215,34 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addSupplierModalLabel">Add New Supplier</h5>
+                <h5 class="modal-title" id="addSupplierModalLabel">Agregar Nuevo Proveedor</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="quickSupplierForm">
                     <div class="mb-3">
-                        <label for="quick_supplier_name" class="form-label">Name</label>
+                        <label for="quick_supplier_name" class="form-label">Nombre</label>
                         <input type="text" class="form-control" id="quick_supplier_name" required>
                     </div>
                     <div class="mb-3">
-                        <label for="quick_supplier_contact" class="form-label">Contact Person</label>
+                        <label for="quick_supplier_contact" class="form-label">Persona de Contacto</label>
                         <input type="text" class="form-control" id="quick_supplier_contact">
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="quick_supplier_email" class="form-label">Email</label>
+                            <label for="quick_supplier_email" class="form-label">Correo Electrónico</label>
                             <input type="email" class="form-control" id="quick_supplier_email">
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="quick_supplier_phone" class="form-label">Phone</label>
+                            <label for="quick_supplier_phone" class="form-label">Teléfono</label>
                             <input type="text" class="form-control" id="quick_supplier_phone">
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-primary" id="saveQuickSupplier">Save Supplier</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-primary" id="saveQuickSupplier">Guardar Proveedor</button>
             </div>
         </div>
     </div>

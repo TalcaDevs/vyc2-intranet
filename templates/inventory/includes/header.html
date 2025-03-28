@@ -15,7 +15,7 @@
                 <span class="input-group-text bg-transparent border-end-0">
                     <i class="bi bi-search"></i>
                 </span>
-                <input type="text" name="q" class="form-control border-start-0" placeholder="Search for parts, suppliers..." value="{{ request.GET.q|default:'' }}">
+                <input type="text" name="q" class="form-control border-start-0" placeholder="Búsqueda de piezas, proveedores..." value="{{ request.GET.q|default:'' }}">
             </div>
         </form>
     </div>
@@ -30,17 +30,18 @@
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end notification-dropdown" aria-labelledby="notificationsDropdown">
                     <li class="dropdown-header">
-                        Notifications
+                        Notificaciones
                     </li>
                     <div class="notification-list" id="notificationList">
                         <div class="text-center p-3 empty-notification">
                             <i class="bi bi-bell-slash text-muted fs-3"></i>
-                            <p class="text-muted mt-2 mb-0">No new notifications</p>
+                            <p class="text-muted mt-2 mb-0">No hay notificaciones nuevas
+                            </p>
                         </div>
                     </div>
                     <li class="dropdown-divider"></li>
                     <li class="dropdown-item text-center">
-                        <a href="#" class="text-decoration-none small">View All Notifications</a>
+                        <a href="#" class="text-decoration-none small">Ver todas las notificaciones</a>
                     </li>
                 </ul>
             </div>
@@ -51,18 +52,19 @@
                     <i class="bi bi-plus-circle"></i>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="quickActionsDropdown">
-                    <li><h6 class="dropdown-header">Quick Actions</h6></li>
+                    <li><h6 class="dropdown-header">Acciones rápidas
+                    </h6></li>
                     <li><a class="dropdown-item" href="{% url 'inventory:part_add' %}">
-                        <i class="bi bi-tools me-2"></i> New Part
+                        <i class="bi bi-tools me-2"></i> Nueva pieza
                     </a></li>
                     <li><a class="dropdown-item" href="{% url 'inventory:add_movement' %}">
-                        <i class="bi bi-arrow-left-right me-2"></i> Stock Movement
+                        <i class="bi bi-arrow-left-right me-2"></i> Movimiento de stock
                     </a></li>
                     <li><a class="dropdown-item" href="{% url 'inventory:supplier_add' %}">
-                        <i class="bi bi-truck me-2"></i> New Supplier
+                        <i class="bi bi-truck me-2"></i> Nuevo proveedor
                     </a></li>
                     <li><a class="dropdown-item" href="{% url 'inventory:category_add' %}">
-                        <i class="bi bi-diagram-3 me-2"></i> New Category
+                        <i class="bi bi-diagram-3 me-2"></i> Nueva categoría
                     </a></li>
                 </ul>
             </div>
@@ -99,15 +101,19 @@
                     </li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="{% url 'authentication:profile' %}">
-                        <i class="bi bi-person me-2"></i> My Profile
+                        <i class="bi bi-person me-2"></i> Mi perfil
                     </a></li>
                     <li><a class="dropdown-item" href="#">
-                        <i class="bi bi-sliders me-2"></i> Settings
+                        <i class="bi bi-sliders me-2"></i> Ajustes
                     </a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a class="dropdown-item" href="{% url 'authentication:logout' %}">
-                        <i class="bi bi-box-arrow-right me-2"></i> Logout
-                    </a></li>
+                    <!-- <li>        <form action="{% url 'logout' %}" method="post" class="mb-0">
+                        {% csrf_token %}
+                        <button type="submit" class="sidebar-footer-link bg-transparent border-0">
+                            <i class="bi bi-box-arrow-right"></i> 
+                            <span>Cerrar Sesión</span>
+                        </button>
+                    </form></li> -->
                 </ul>
             </div>
         </div>

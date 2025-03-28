@@ -21,9 +21,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 partInfoCard.style.display = 'block';
                 
                 // Fetch part details
-                fetch(`/api/parts/${this.value}/`)
-                    .then(response => response.json())
-                    .then(data => {
+                fetch(`/inventory/api/parts/${this.value}/`)
+                .then(response => response.json())
+                .then(data => {
                         // Update the part info content
                         const imageHtml = data.image ? 
                             `<img src="${data.image}" alt="${data.name}" class="part-image mb-3">` : 
@@ -76,12 +76,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     })
                     .catch(error => {
                         console.error('Error fetching part details:', error);
-                        partInfoContent.innerHTML = `
-                            <div class="alert alert-danger">
-                                <i class="bi bi-exclamation-circle me-2"></i>
-                                Error loading part details. Please try again.
-                            </div>
-                        `;
+                        partInfoContent.innerHTML = '<div class="alert alert-danger">Error loading part details. Please try again.</div>';
                     });
             } else {
                 partInfoCard.style.display = 'none';

@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Dashboard - Workshop Inventory{% endblock %}
-{% block header_title %}Dashboard{% endblock %}
+{% block title %}Panel de Control - Vyc Ingeniería{% endblock %}
+{% block header_title %}Panel de Control{% endblock %}
 
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
@@ -10,14 +10,14 @@
 
 {% block dashboard_content %}
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-4">
-    <h1 class="h2">Dashboard</h1>
+    <h1 class="h2">Panel de Control</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
         <div class="btn-group me-2">
             <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#addPartModal">
-                <i class="bi bi-plus-circle"></i> Add New Part
+                <i class="bi bi-plus-circle"></i> Agregar nueva pieza
             </button>
             <button type="button" class="btn btn-sm btn-outline-secondary" data-bs-toggle="modal" data-bs-target="#addMovementModal">
-                <i class="bi bi-box-arrow-in-down"></i> Record Movement
+                <i class="bi bi-box-arrow-in-down"></i> Registrar movimiento
             </button>
         </div>
     </div>
@@ -30,7 +30,7 @@
             <div class="card-stats">
                 <div>
                     <h2 class="stat-count">{{ total_parts }}</h2>
-                    <p class="stat-label">Total Parts</p>
+                    <p class="stat-label">Piezas totales</p>
                 </div>
                 <div class="icon-box bg-primary">
                     <i class="bi bi-tools stat-icon"></i>
@@ -38,7 +38,7 @@
             </div>
             <div class="card-footer bg-primary text-white py-2">
                 <a href="{% url 'inventory:part_list' %}" class="text-white text-decoration-none small">
-                    <span>View Details</span>
+                    <span>Ver detalles</span>
                     <i class="bi bi-arrow-right float-end"></i>
                 </a>
             </div>
@@ -50,7 +50,7 @@
             <div class="card-stats">
                 <div>
                     <h2 class="stat-count">{{ total_categories }}</h2>
-                    <p class="stat-label">Categories</p>
+                    <p class="stat-label">Categorías</p>
                 </div>
                 <div class="icon-box bg-success">
                     <i class="bi bi-diagram-3 stat-icon"></i>
@@ -58,7 +58,7 @@
             </div>
             <div class="card-footer bg-success text-white py-2">
                 <a href="{% url 'inventory:category_list' %}" class="text-white text-decoration-none small">
-                    <span>View Details</span>
+                    <span>Ver detalles</span>
                     <i class="bi bi-arrow-right float-end"></i>
                 </a>
             </div>
@@ -70,7 +70,7 @@
             <div class="card-stats">
                 <div>
                     <h2 class="stat-count">{{ total_suppliers }}</h2>
-                    <p class="stat-label">Suppliers</p>
+                    <p class="stat-label">Proveedores</p>
                 </div>
                 <div class="icon-box bg-info">
                     <i class="bi bi-truck stat-icon"></i>
@@ -78,7 +78,7 @@
             </div>
             <div class="card-footer bg-info text-white py-2">
                 <a href="{% url 'inventory:supplier_list' %}" class="text-white text-decoration-none small">
-                    <span>View Details</span>
+                    <span>Ver detalles</span>
                     <i class="bi bi-arrow-right float-end"></i>
                 </a>
             </div>
@@ -90,7 +90,7 @@
             <div class="card-stats">
                 <div>
                     <h2 class="stat-count">{{ low_stock_parts.count }}</h2>
-                    <p class="stat-label text-danger">Low Stock Alerts</p>
+                    <p class="stat-label text-danger">Alertas de existencias bajas</p>
                 </div>
                 <div class="icon-box bg-danger">
                     <i class="bi bi-exclamation-triangle stat-icon"></i>
@@ -98,7 +98,7 @@
             </div>
             <div class="card-footer bg-danger text-white py-2">
                 <a href="#low-stock-section" class="text-white text-decoration-none small">
-                    <span>View Alerts</span>
+                    <span>Ver alertas</span>
                     <i class="bi bi-arrow-right float-end"></i>
                 </a>
             </div>
@@ -112,12 +112,12 @@
         <ul class="nav nav-tabs" id="dashboardTabs" role="tablist">
             <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="alerts-tab" data-bs-toggle="tab" data-bs-target="#alerts-tab-pane" type="button" role="tab" aria-controls="alerts-tab-pane" aria-selected="true">
-                    <i class="bi bi-exclamation-triangle me-2"></i>Low Stock Alerts
+                    <i class="bi bi-exclamation-triangle me-2"></i>Alertas de existencias bajas
                 </button>
             </li>
             <li class="nav-item" role="presentation">
                 <button class="nav-link" id="recent-tab" data-bs-toggle="tab" data-bs-target="#recent-tab-pane" type="button" role="tab" aria-controls="recent-tab-pane" aria-selected="false">
-                    <i class="bi bi-clock-history me-2"></i>Recent Movements
+                    <i class="bi bi-clock-history me-2"></i>Movimientos recientes
                 </button>
             </li>
         </ul>
@@ -126,18 +126,18 @@
         <!-- Low Stock Alerts Tab -->
         <div class="tab-pane fade show active" id="alerts-tab-pane" role="tabpanel" aria-labelledby="alerts-tab" tabindex="0">
             <h5 id="low-stock-section" class="card-title mb-3">
-                <i class="bi bi-exclamation-triangle text-danger me-2"></i>Low Stock Alerts
+                <i class="bi bi-exclamation-triangle text-danger me-2"></i>Alertas de existencias bajas
             </h5>
             {% if low_stock_parts %}
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead class="table-light">
                             <tr>
-                                <th>Part Name</th>
-                                <th>Part Number</th>
-                                <th>Current Stock</th>
-                                <th>Minimum Stock</th>
-                                <th>Action</th>
+                                <th>Nombre de la pieza</th>
+                                <th>Número de pieza</th>
+                                <th>Existencias actuales</th>
+                                <th>Existencias mínimas</th>
+                                <th>Acción</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -157,7 +157,7 @@
                                                 data-part-name="{{ part.name }}"
                                                 data-bs-toggle="modal" 
                                                 data-bs-target="#addMovementModal">
-                                            <i class="bi bi-plus-circle me-1"></i>Restock
+                                            <i class="bi bi-plus-circle me-1"></i>Reabastecer
                                         </button>
                                     </td>
                                 </tr>
@@ -167,7 +167,7 @@
                 </div>
             {% else %}
                 <div class="alert alert-success mb-0">
-                    <i class="bi bi-check-circle me-2"></i>No parts are currently below minimum stock levels.
+                    <i class="bi bi-check-circle me-2"></i>No hay piezas por debajo del nivel mínimo de existencias.
                 </div>
             {% endif %}
         </div>
@@ -175,19 +175,19 @@
         <!-- Recent Movements Tab -->
         <div class="tab-pane fade" id="recent-tab-pane" role="tabpanel" aria-labelledby="recent-tab" tabindex="0">
             <h5 class="card-title mb-3">
-                <i class="bi bi-clock-history text-info me-2"></i>Recent Inventory Movements
+                <i class="bi bi-clock-history text-info me-2"></i>Movimientos de inventario recientes
             </h5>
             {% if recent_movements %}
                 <div class="table-responsive">
                     <table class="table table-hover">
                         <thead class="table-light">
                             <tr>
-                                <th>Date</th>
-                                <th>Part</th>
-                                <th>Type</th>
-                                <th>Quantity</th>
-                                <th>Reference</th>
-                                <th>User</th>
+                                <th>Fecha</th>
+                                <th>Pieza</th>
+                                <th>Tipo</th>
+                                <th>Cantidad</th>
+                                <th>Referencia</th>
+                                <th>Usuario</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -201,11 +201,11 @@
                                     </td>
                                     <td>
                                         {% if movement.movement_type == 'in' %}
-                                            <span class="badge bg-success">Stock In</span>
+                                            <span class="badge bg-success">Entrada</span>
                                         {% elif movement.movement_type == 'out' %}
-                                            <span class="badge bg-warning">Stock Out</span>
+                                            <span class="badge bg-warning">Salida</span>
                                         {% else %}
-                                            <span class="badge bg-secondary">Adjustment</span>
+                                            <span class="badge bg-secondary">Ajuste</span>
                                         {% endif %}
                                     </td>
                                     <td>{{ movement.quantity }}</td>
@@ -218,7 +218,7 @@
                 </div>
             {% else %}
                 <div class="alert alert-info mb-0">
-                    <i class="bi bi-info-circle me-2"></i>No recent inventory movements.
+                    <i class="bi bi-info-circle me-2"></i>No hay movimientos de inventario recientes.
                 </div>
             {% endif %}
         </div>
@@ -231,7 +231,7 @@
         <div class="modal-content">
             <div class="modal-header bg-primary text-white">
                 <h5 class="modal-title" id="addPartModalLabel">
-                    <i class="bi bi-plus-circle me-2"></i>Add New Part
+                    <i class="bi bi-plus-circle me-2"></i>Agregar nueva pieza
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -239,20 +239,20 @@
                 <div class="modal-body">
                     {% csrf_token %}
                     <div class="mb-3">
-                        <label for="id_name" class="form-label">Name</label>
+                        <label for="id_name" class="form-label">Nombre</label>
                         <input type="text" name="name" class="form-control" id="id_name" required>
                     </div>
                     <div class="mb-3">
-                        <label for="id_part_number" class="form-label">Part Number</label>
+                        <label for="id_part_number" class="form-label">Número de pieza</label>
                         <input type="text" name="part_number" class="form-control" id="id_part_number" required>
                     </div>
                     <div class="mb-3">
-                        <label for="id_description" class="form-label">Description</label>
+                        <label for="id_description" class="form-label">Descripción</label>
                         <textarea name="description" class="form-control" id="id_description" rows="3"></textarea>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="id_category" class="form-label">Category</label>
+                            <label for="id_category" class="form-label">Categoría</label>
                             <div class="input-group">
                                 <select name="category" class="form-select" id="id_category" required>
                                     <option value="">---------</option>
@@ -266,7 +266,7 @@
                             </div>
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="id_supplier" class="form-label">Supplier</label>
+                            <label for="id_supplier" class="form-label">Proveedor</label>
                             <div class="input-group">
                                 <select name="supplier" class="form-select" id="id_supplier">
                                     <option value="">---------</option>
@@ -282,38 +282,38 @@
                     </div>
                     <div class="row">
                         <div class="col-md-4 mb-3">
-                            <label for="id_unit_price" class="form-label">Unit Price</label>
+                            <label for="id_unit_price" class="form-label">Precio unitario</label>
                             <div class="input-group">
                                 <span class="input-group-text">$</span>
                                 <input type="number" name="unit_price" class="form-control" id="id_unit_price" step="0.01" min="0" required>
                             </div>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="id_stock_quantity" class="form-label">Stock Quantity</label>
+                            <label for="id_stock_quantity" class="form-label">Cantidad en existencia</label>
                             <input type="number" name="stock_quantity" class="form-control" id="id_stock_quantity" min="0" value="0" required>
                         </div>
                         <div class="col-md-4 mb-3">
-                            <label for="id_minimum_stock" class="form-label">Minimum Stock</label>
+                            <label for="id_minimum_stock" class="form-label">Existencia mínima</label>
                             <input type="number" name="minimum_stock" class="form-control" id="id_minimum_stock" min="0" value="1" required>
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="id_location" class="form-label">Storage Location</label>
+                        <label for="id_location" class="form-label">Ubicación de almacenamiento</label>
                         <input type="text" name="location" class="form-control" id="id_location">
                     </div>
                     <div class="mb-3">
-                        <label for="id_image" class="form-label">Image</label>
+                        <label for="id_image" class="form-label">Imagen</label>
                         <input type="file" name="image" class="form-control" id="id_image">
                     </div>
                     <div class="form-check mb-3">
                         <input type="checkbox" name="is_active" class="form-check-input" id="id_is_active" checked>
-                        <label class="form-check-label" for="id_is_active">Active</label>
+                        <label class="form-check-label" for="id_is_active">Activo</label>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-primary">
-                        <i class="bi bi-save me-1"></i>Save Part
+                        <i class="bi bi-save me-1"></i>Guardar pieza
                     </button>
                 </div>
             </form>
@@ -327,7 +327,7 @@
         <div class="modal-content">
             <div class="modal-header bg-secondary text-white">
                 <h5 class="modal-title" id="addMovementModalLabel">
-                    <i class="bi bi-arrow-left-right me-2"></i>Record Stock Movement
+                    <i class="bi bi-arrow-left-right me-2"></i>Registrar movimiento de existencias
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
@@ -335,7 +335,7 @@
                 <div class="modal-body">
                     {% csrf_token %}
                     <div class="mb-3">
-                        <label for="id_part" class="form-label">Part</label>
+                        <label for="id_part" class="form-label">Pieza</label>
                         <select name="part" class="form-select" id="id_part" required>
                             <option value="">---------</option>
                             {% for part in all_parts %}
@@ -344,33 +344,33 @@
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="id_movement_type" class="form-label">Movement Type</label>
+                        <label for="id_movement_type" class="form-label">Tipo de movimiento</label>
                         <select name="movement_type" class="form-select" id="id_movement_type" required>
-                            <option value="in">Stock In</option>
-                            <option value="out">Stock Out</option>
-                            <option value="adjustment">Adjustment</option>
+                            <option value="in">Entrada</option>
+                            <option value="out">Salida</option>
+                            <option value="adjustment">Ajuste</option>
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="id_quantity" class="form-label">Quantity</label>
+                        <label for="id_quantity" class="form-label">Cantidad</label>
                         <input type="number" name="quantity" class="form-control" id="id_quantity" min="1" value="1" required>
                         <div class="form-text">
-                            <i class="bi bi-info-circle me-1"></i>For 'Stock Out', enter positive values (they will be subtracted automatically)
+                            <i class="bi bi-info-circle me-1"></i>Para 'Salida', ingrese valores positivos (se restarán automáticamente)
                         </div>
                     </div>
                     <div class="mb-3">
-                        <label for="id_reference" class="form-label">Reference</label>
-                        <input type="text" name="reference" class="form-control" id="id_reference" placeholder="e.g., Invoice #, Order #">
+                        <label for="id_reference" class="form-label">Referencia</label>
+                        <input type="text" name="reference" class="form-control" id="id_reference" placeholder="ej., Factura #, Orden #">
                     </div>
                     <div class="mb-3">
-                        <label for="id_notes" class="form-label">Notes</label>
+                        <label for="id_notes" class="form-label">Notas</label>
                         <textarea name="notes" class="form-control" id="id_notes" rows="3"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-primary">
-                        <i class="bi bi-save me-1"></i>Save Movement
+                        <i class="bi bi-save me-1"></i>Guardar movimiento
                     </button>
                 </div>
             </form>
@@ -384,26 +384,26 @@
         <div class="modal-content">
             <div class="modal-header bg-success text-white">
                 <h5 class="modal-title" id="addCategoryModalLabel">
-                    <i class="bi bi-diagram-3 me-2"></i>Add New Category
+                    <i class="bi bi-diagram-3 me-2"></i>Agregar nueva categoría
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="quickCategoryForm">
                     <div class="mb-3">
-                        <label for="quick_category_name" class="form-label">Name</label>
+                        <label for="quick_category_name" class="form-label">Nombre</label>
                         <input type="text" class="form-control" id="quick_category_name" required>
                     </div>
                     <div class="mb-3">
-                        <label for="quick_category_description" class="form-label">Description</label>
+                        <label for="quick_category_description" class="form-label">Descripción</label>
                         <textarea class="form-control" id="quick_category_description" rows="3"></textarea>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
                 <button type="button" class="btn btn-success" id="saveQuickCategory">
-                    <i class="bi bi-save me-1"></i>Save Category
+                    <i class="bi bi-save me-1"></i>Guardar categoría
                 </button>
             </div>
         </div>
@@ -416,36 +416,36 @@
         <div class="modal-content">
             <div class="modal-header bg-info text-white">
                 <h5 class="modal-title" id="addSupplierModalLabel">
-                    <i class="bi bi-truck me-2"></i>Add New Supplier
+                    <i class="bi bi-truck me-2"></i>Agregar nuevo proveedor
                 </h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
                 <form id="quickSupplierForm">
                     <div class="mb-3">
-                        <label for="quick_supplier_name" class="form-label">Name</label>
+                        <label for="quick_supplier_name" class="form-label">Nombre</label>
                         <input type="text" class="form-control" id="quick_supplier_name" required>
                     </div>
                     <div class="mb-3">
-                        <label for="quick_supplier_contact" class="form-label">Contact Person</label>
+                        <label for="quick_supplier_contact" class="form-label">Persona de contacto</label>
                         <input type="text" class="form-control" id="quick_supplier_contact">
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="quick_supplier_email" class="form-label">Email</label>
+                            <label for="quick_supplier_email" class="form-label">Correo electrónico</label>
                             <input type="email" class="form-control" id="quick_supplier_email">
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="quick_supplier_phone" class="form-label">Phone</label>
+                            <label for="quick_supplier_phone" class="form-label">Teléfono</label>
                             <input type="text" class="form-control" id="quick_supplier_phone">
                         </div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
                 <button type="button" class="btn btn-info text-white" id="saveQuickSupplier">
-                    <i class="bi bi-save me-1"></i>Save Supplier
+                    <i class="bi bi-save me-1"></i>Guardar proveedor
                 </button>
             </div>
         </div>

@@ -1,15 +1,15 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Suppliers - Workshop Inventory{% endblock %}
-{% block header_title %}Suppliers{% endblock %}
+{% block title %}Proveedores - Workshop Inventory{% endblock %}
+{% block header_title %}Proveedores{% endblock %}
 
 {% block content %}
 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-    <h1 class="h2">Suppliers</h1>
+    <h1 class="h2">Proveedores</h1>
     <div class="btn-toolbar mb-2 mb-md-0">
         <a href="{% url 'inventory:supplier_add' %}" class="btn btn-sm btn-primary">
-            <i class="bi bi-plus-circle"></i> Add New Supplier
+            <i class="bi bi-plus-circle"></i> Agregar Nuevo Proveedor
         </a>
     </div>
 </div>
@@ -18,10 +18,10 @@
 <div class="row mb-4">
     <div class="col-md-6">
         <form method="get" class="d-flex">
-            <input type="text" name="search" class="form-control me-2" placeholder="Search suppliers..." value="{{ request.GET.search|default:'' }}">
-            <button type="submit" class="btn btn-outline-primary">Search</button>
+            <input type="text" name="search" class="form-control me-2" placeholder="Buscar proveedores..." value="{{ request.GET.search|default:'' }}">
+            <button type="submit" class="btn btn-outline-primary">Buscar</button>
             {% if request.GET.search %}
-                <a href="{% url 'inventory:supplier_list' %}" class="btn btn-outline-secondary ms-2">Clear</a>
+                <a href="{% url 'inventory:supplier_list' %}" class="btn btn-outline-secondary ms-2">Limpiar</a>
             {% endif %}
         </form>
     </div>
@@ -35,12 +35,12 @@
                 <table class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Name</th>
-                            <th>Contact Person</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Parts Count</th>
-                            <th>Actions</th>
+                            <th>Nombre</th>
+                            <th>Persona de Contacto</th>
+                            <th>Correo Electrónico</th>
+                            <th>Teléfono</th>
+                            <th>Cantidad de Piezas</th>
+                            <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -111,14 +111,14 @@
             {% endif %}
         {% else %}
             <div class="text-center py-4">
-                <p class="text-muted mb-0">No suppliers found.</p>
+                <p class="text-muted mb-0">No se encontraron proveedores.</p>
                 {% if request.GET.search %}
                     <p class="mt-2">
-                        <a href="{% url 'inventory:supplier_list' %}" class="btn btn-outline-secondary">Clear search</a>
+                        <a href="{% url 'inventory:supplier_list' %}" class="btn btn-outline-secondary">Limpiar búsqueda</a>
                     </p>
                 {% else %}
                     <p class="mt-2">
-                        <a href="{% url 'inventory:supplier_add' %}" class="btn btn-primary">Add your first supplier</a>
+                        <a href="{% url 'inventory:supplier_add' %}" class="btn btn-primary">Agrega tu primer proveedor</a>
                     </p>
                 {% endif %}
             </div>

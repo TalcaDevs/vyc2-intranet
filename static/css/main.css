@@ -221,3 +221,23 @@ h1, h2, h3, h4, h5, h6 {
         padding: 1rem;
     }
 }
+
+/* Add this to your main.css file */
+.content-wrapper {
+    margin-left: var(--sidebar-width);
+    padding: 80px 20px 20px;
+    min-height: 100vh;
+    background-color: var(--body-bg);
+    transition: all 0.3s ease;
+}
+
+body.sidebar-collapsed .content-wrapper {
+    margin-left: var(--sidebar-width-collapsed);
+}
+
+@media (max-width: 767.98px) {
+    .content-wrapper {
+        margin-left: 0;
+        padding-top: 60px;
+    }
+}
