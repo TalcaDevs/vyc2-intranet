@@ -20,14 +20,14 @@ def profile_view(request):
     return render(request, 'authentication/profile.html', {'form': form})
 
 @login_required
-@permission_required('auth.view_user')
+@permission_required('auth.view_user', raise_exception=True)
 def user_list(request):
     """List all workshop users"""
-    users = WorkshopUser.objects.all()
+    users = WorkshopUser.objects.all().order_by('username')
     return render(request, 'authentication/user_list.html', {'users': users})
 
-@login_required
-@permission_required('auth.add_user')
+@login_required 
+@permission_required('auth.add_user', raise_exception=True)
 def add_user(request):
     """Add a new workshop user"""
     if request.method == 'POST':
@@ -42,7 +42,7 @@ def add_user(request):
     return render(request, 'authentication/user_form.html', {'form': form})
 
 @login_required
-@permission_required('auth.change_user')
+@permission_required('auth.change_user', raise_exception=True)
 def edit_user(request, user_id):
     """Edit an existing workshop user"""
     user = get_object_or_404(WorkshopUser, id=user_id)

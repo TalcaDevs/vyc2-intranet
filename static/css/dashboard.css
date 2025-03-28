@@ -1,0 +1,150 @@
+/* Dashboard styles */
+.dashboard-card {
+    transition: all 0.3s ease;
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.card-stats {
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-stats .icon-box {
+    height: 64px;
+    width: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.card-stats .stat-icon {
+    font-size: 2rem;
+    color: white;
+}
+
+.card-stats .stat-count {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.card-stats .stat-label {
+    color: #6c757d;
+    margin-bottom: 0;
+    font-weight: 500;
+}
+
+.low-stock {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.tab-content {
+    background-color: #fff;
+    border-radius: 0 0 0.5rem 0.5rem;
+    padding: 1.5rem;
+    border: 1px solid #dee2e6;
+    border-top: none;
+}
+
+/* Modal styles */
+.modal-content {
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.modal-header {
+    padding: 1rem 1.5rem;
+}
+
+.modal-body {
+    padding: 1.5rem;
+}
+
+.modal-footer {
+    padding: 1rem 1.5rem;
+}
+
+/* Toast notifications */
+.toast {
+    border: none;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.toast-header {
+    padding: 0.75rem 1rem;
+    border-bottom: none;
+}
+
+.toast-body {
+    padding: 1rem;
+}
+
+/* Table styles */
+.table thead th {
+    font-weight: 600;
+    color: #212529;
+    background-color: #f8f9fa;
+    border-top: none;
+}
+
+.table-hover tbody tr {
+    transition: all 0.2s ease;
+}
+
+.table-hover tbody tr:hover {
+    background-color: rgba(13, 110, 253, 0.05);
+}
+
+/* Responsive adjustments */
+@media (max-width: 767.98px) {
+    .card-stats {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .card-stats .icon-box {
+        margin-bottom: 1rem;
+    }
+    
+    .card-stats .stat-count {
+        font-size: 2rem;
+    }
+}
+
+/* Nav tabs styling */
+.nav-tabs {
+    border-bottom: none;
+}
+
+.nav-tabs .nav-link {
+    border: none;
+    border-radius: 0.5rem 0.5rem 0 0;
+    padding: 0.75rem 1.25rem;
+    margin-right: 0.25rem;
+    color: #6c757d;
+    font-weight: 500;
+}
+
+.nav-tabs .nav-link:hover {
+    background-color: rgba(13, 110, 253, 0.05);
+    border-color: transparent;
+}
+
+.nav-tabs .nav-link.active {
+    color: #0d6efd;
+    background-color: #fff;
+    border-color: #dee2e6 #dee2e6 #fff;
+    border-bottom: 2px solid #0d6efd;
+}

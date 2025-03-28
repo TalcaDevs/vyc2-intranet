@@ -18,11 +18,14 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from django.views.generic import RedirectView
+from django.contrib.auth.views import LoginView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('inventory.urls')),
+    path('', LoginView.as_view(template_name='authentication/login.html'), name='root_login'),
     path('accounts/', include('authentication.urls')),
+    path('inventory/', include('inventory.urls')),
 ]
 
 if settings.DEBUG:

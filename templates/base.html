@@ -4,125 +4,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Workshop Inventory{% endblock %}</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>{% block title %}Workshop Inventory Management System{% endblock %}</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css" rel="stylesheet">
+    
+    <!-- Core CSS - solo para usuarios autenticados -->
+    {% if user.is_authenticated %}
+      <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+      <link rel="stylesheet" href="{% static 'css/header.css' %}">
+      <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    {% endif %}
+    
+    <!-- Page-specific CSS -->
     {% block extra_css %}{% endblock %}
 </head>
-<body>
-    <div class="container-fluid">
-        <div class="row">
-            {% if user.is_authenticated %}
-                <!-- Sidebar para usuarios autenticados -->
-                <div class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
-                    <div class="position-sticky pt-3 sidebar-sticky">
-                        <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link {% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}" href="{% url 'inventory:dashboard' %}">
-                                    <i class="bi bi-speedometer2"></i> Dashboard
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {% if 'part' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'inventory:part_list' %}">
-                                    <i class="bi bi-tools"></i> Parts
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {% if 'category' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'inventory:category_list' %}">
-                                    <i class="bi bi-diagram-3"></i> Categories
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {% if 'supplier' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'inventory:supplier_list' %}">
-                                    <i class="bi bi-truck"></i> Suppliers
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'inventory:add_movement' %}">
-                                    <i class="bi bi-arrow-left-right"></i> Stock Movement
-                                </a>
-                            </li>
-                            
-                            {% if user.is_staff or user.role == 'admin' %}
-                            <li class="nav-header mt-3">
-                                <span class="nav-link text-muted">Administration</span>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link {% if 'user' in request.resolver_match.url_name %}active{% endif %}" href="{% url 'authentication:user_list' %}">
-                                    <i class="bi bi-people"></i> Users
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="{% url 'admin:index' %}">
-                                    <i class="bi bi-gear"></i> Admin Panel
-                                </a>
-                            </li>
-                            {% endif %}
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Barra superior para móviles -->
-                <div class="navbar navbar-dark bg-dark d-md-none">
-                    <div class="container-fluid">
-                        <a class="navbar-brand" href="{% url 'inventory:dashboard' %}">Workshop Inventory</a>
-                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".sidebar" aria-controls="sidebar" aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                    </div>
-                </div>
-                
-                <!-- Contenido principal -->
-                <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                    <!-- Cabecera con info de usuario y logout -->
-                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-2 mb-3 border-bottom">
-                        <h1 class="h2">{% block header_title %}{% endblock %}</h1>
-                        <div class="btn-toolbar mb-2 mb-md-0">
-                            <div class="dropdown">
-                                <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="userMenu" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi bi-person-circle"></i> {{ user.username }}
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
-                                    <li><a class="dropdown-item" href="{% url 'authentication:profile' %}">My Profile</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li>
-                                        <form method="post" action="{% url 'authentication:logout' %}" class="dropdown-item p-0">
-                                            {% csrf_token %}
-                                            <button type="submit" class="btn btn-link dropdown-item">Cerrar sesión</button>
-                                        </form>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-            {% else %}
-                <!-- Contenido para usuarios no autenticados -->
-                <div class="col-12">
-            {% endif %}
-            
-            <!-- Mensajes/Alertas (común para todos los usuarios) -->
-            {% if messages %}
-                {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
-                        {{ message }}
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
-                {% endfor %}
-            {% endif %}
-            
-            <!-- Contenido específico de la página -->
-            {% block content %}{% endblock %}
-            
-            {% if user.is_authenticated %}
-                </main>
-            {% else %}
-                </div>
-            {% endif %}
-        </div>
-    </div>
+<body class="{% if user.is_authenticated %}{% else %}bg-light{% endif %}">
+    {% if user.is_authenticated %}
+        <!-- Sidebar -->
+        {% include 'inventory/includes/sidebar.html' %}
+        
+        <!-- Header -->
+        {% include 'inventory/includes/header.html' %}
+        
+        <!-- Main Content -->
+        <main class="content-wrapper">
+            <div class="container-fluid">
+                {% block dashboard_content %}{% endblock %}
+            </div>
+        </main>
+    {% else %}
+        <!-- Auth pages (login, register, etc.) -->
+        {% block auth_content %}{% endblock %}
+    {% endif %}
     
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Core JS - solo para usuarios autenticados -->
+    {% if user.is_authenticated %}
+      <script src="{% static 'js/sidebar.js' %}"></script>
+      <script src="{% static 'js/header.js' %}"></script>
+      <script src="{% static 'js/main.js' %}"></script>
+    {% endif %}
+    
+    <!-- Page-specific JS -->
     {% block extra_js %}{% endblock %}
 </body>
 </html>

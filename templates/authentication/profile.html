@@ -1,0 +1,294 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Profile - Workshop Inventory{% endblock %}
+
+{% block header_title %}My Profile{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Profile Header -->
+<div class="profile-header">
+    <div class="row">
+        <div class="col-md-3 text-center">
+            {% if user.profile_image %}
+                <img src="{{ user.profile_image.url }}" alt="Profile Image" class="profile-image mb-3">
+            {% else %}
+                <div class="profile-image-placeholder mb-3">
+                    <i class="bi bi-person"></i>
+                </div>
+            {% endif %}
+            <h4 class="mb-1">{{ user.get_full_name }}</h4>
+            <p class="text-muted mb-0">@{{ user.username }}</p>
+            <span class="badge bg-primary mt-2">{{ user.get_role_display }}</span>
+        </div>
+        <div class="col-md-9">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                <div class="col">
+                    <div class="profile-stats">
+                        <div class="d-flex align-items-center">
+                            <div class="stats-icon me-3 text-primary">
+                                <i class="bi bi-arrow-left-right"></i>
+                            </div>
+                            <div>
+                                <h5 class="mb-0">{{ user.stock_movements.count }}</h5>
+                                <p class="text-muted mb-0">Stock Movements</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="profile-stats">
+                        <div class="d-flex align-items-center">
+                            <div class="stats-icon me-3 text-success">
+                                <i class="bi bi-calendar-check"></i>
+                            </div>
+                            <div>
+                                <h5 class="mb-0">{{ user.date_joined|date:"M d, Y" }}</h5>
+                                <p class="text-muted mb-0">Member Since</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="profile-stats">
+                        <div class="d-flex align-items-center">
+                            <div class="stats-icon me-3 text-warning">
+                                <i class="bi bi-clock-history"></i>
+                            </div>
+                            <div>
+                                <h5 class="mb-0">{{ user.last_login|date:"M d, Y" }}</h5>
+                                <p class="text-muted mb-0">Last Login</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Profile Content -->
+<div class="card form-card border-0">
+    <div class="card-header bg-white p-0">
+        <ul class="nav nav-tabs" id="profileTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="personal-tab" data-bs-toggle="tab" data-bs-target="#personal-tab-pane" type="button" role="tab" aria-controls="personal-tab-pane" aria-selected="true">
+                    <i class="bi bi-person me-2"></i>Personal Information
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="account-tab" data-bs-toggle="tab" data-bs-target="#account-tab-pane" type="button" role="tab" aria-controls="account-tab-pane" aria-selected="false">
+                    <i class="bi bi-shield-lock me-2"></i>Account Settings
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="activity-tab" data-bs-toggle="tab" data-bs-target="#activity-tab-pane" type="button" role="tab" aria-controls="activity-tab-pane" aria-selected="false">
+                    <i class="bi bi-activity me-2"></i>Recent Activity
+                </button>
+            </li>
+        </ul>
+    </div>
+    <div class="tab-content" id="profileTabsContent">
+        <!-- Personal Information Tab -->
+        <div class="tab-pane fade show active" id="personal-tab-pane" role="tabpanel" aria-labelledby="personal-tab" tabindex="0">
+            <form method="post" enctype="multipart/form-data" novalidate>
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <label for="id_profile_image" class="form-label">Profile Image</label>
+                        <div class="custom-file-upload d-block">
+                            <button type="button" class="btn btn-outline-primary w-100">
+                                <i class="bi bi-cloud-arrow-up me-2"></i>Choose Image
+                            </button>
+                            <input type="file" name="profile_image" id="id_profile_image" class="form-control">
+                        </div>
+                        <small class="form-text text-muted">
+                            Recommended size: 300 x 300 pixels
+                        </small>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="id_first_name" class="form-label">First Name</label>
+                                <input type="text" name="first_name" id="id_first_name" class="form-control" value="{{ form.first_name.value|default:'' }}">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="id_last_name" class="form-label">Last Name</label>
+                                <input type="text" name="last_name" id="id_last_name" class="form-control" value="{{ form.last_name.value|default:'' }}">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="id_phone" class="form-label">Phone</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="bi bi-telephone"></i></span>
+                                <input type="text" name="phone" id="id_phone" class="form-control" value="{{ form.phone.value|default:'' }}">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="id_username" class="form-label">Username</label>
+                        <div class="input-group">
+                            <span class="input-group-text">@</span>
+                            <input type="text" name="username" id="id_username" class="form-control" value="{{ form.username.value|default:'' }}" required>
+                        </div>
+                        {% if form.username.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.username.errors %}{{ error }}{% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="id_email" class="form-label">Email</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+                            <input type="email" name="email" id="id_email" class="form-control" value="{{ form.email.value|default:'' }}">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mb-3">
+                    <label for="id_role" class="form-label">Role</label>
+                    <select name="role" id="id_role" class="form-select" disabled>
+                        {% for value, display in form.fields.role.choices %}
+                            <option value="{{ value }}" {% if form.role.value == value %}selected{% endif %}>{{ display }}</option>
+                        {% endfor %}
+                    </select>
+                    <input type="hidden" name="role" value="{{ form.role.value }}">
+                    <small class="form-text text-muted">
+                        <i class="bi bi-info-circle me-1"></i>Role can only be changed by an administrator
+                    </small>
+                </div>
+                
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-save me-1"></i>Update Profile
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Account Settings Tab -->
+        <div class="tab-pane fade" id="account-tab-pane" role="tabpanel" aria-labelledby="account-tab" tabindex="0">
+            <div class="alert alert-info">
+                <div class="d-flex">
+                    <div class="flex-shrink-0">
+                        <i class="bi bi-info-circle-fill fs-4 me-2"></i>
+                    </div>
+                    <div>
+                        <h5 class="alert-heading">Password Change</h5>
+                        <p class="mb-0">To change your password, use the form below. For security, you'll need to enter your current password.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <form method="post" action="#" class="mt-4">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="current_password" class="form-label">Current Password</label>
+                    <input type="password" name="current_password" id="current_password" class="form-control" required>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="new_password1" class="form-label">New Password</label>
+                        <input type="password" name="new_password1" id="new_password1" class="form-control" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="new_password2" class="form-label">Confirm New Password</label>
+                        <input type="password" name="new_password2" id="new_password2" class="form-control" required>
+                    </div>
+                </div>
+                
+                <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="bi bi-lock me-1"></i>Change Password
+                    </button>
+                </div>
+            </form>
+            
+            <hr class="my-4">
+            
+            <div class="card bg-light border-0 mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Account Status</h5>
+                    <p class="card-text">Your account is currently <span class="badge bg-success">Active</span></p>
+                    <p class="text-muted mb-0">If you need to deactivate your account, please contact an administrator.</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Recent Activity Tab -->
+        <div class="tab-pane fade" id="activity-tab-pane" role="tabpanel" aria-labelledby="activity-tab" tabindex="0">
+            <h5 class="mb-3">Recent Stock Movements</h5>
+            {% with recent_movements=user.stock_movements.all|slice:":5" %}
+                {% if recent_movements %}
+                    <div class="list-group mb-4">
+                        {% for movement in recent_movements %}
+                            <div class="list-group-item list-group-item-action">
+                                <div class="d-flex w-100 justify-content-between">
+                                    <h6 class="mb-1">
+                                        {% if movement.movement_type == 'in' %}
+                                            <span class="badge bg-success">Stock In</span>
+                                        {% elif movement.movement_type == 'out' %}
+                                            <span class="badge bg-warning">Stock Out</span>
+                                        {% else %}
+                                            <span class="badge bg-secondary">Adjustment</span>
+                                        {% endif %}
+                                        {{ movement.part.name }}
+                                    </h6>
+                                    <small class="text-muted">{{ movement.created_at|date:"M d, Y H:i" }}</small>
+                                </div>
+                                <p class="mb-1">
+                                    Quantity: <strong class="{% if movement.movement_type == 'in' %}text-success{% elif movement.movement_type == 'out' %}text-danger{% endif %}">
+                                        {% if movement.movement_type == 'in' %}+{% elif movement.movement_type == 'out' %}-{% endif %}{{ movement.quantity }}
+                                    </strong>
+                                </p>
+                                <small class="text-muted">
+                                    Reference: {{ movement.reference|default:"No reference" }}
+                                </small>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="text-center">
+                        <a href="#" class="btn btn-outline-primary">View All Activity</a>
+                    </div>
+                {% else %}
+                    <div class="alert alert-info">
+                        <i class="bi bi-info-circle me-2"></i>
+                        No stock movements recorded yet.
+                    </div>
+                {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Update file input label when a file is selected
+        const fileInput = document.getElementById('id_profile_image');
+        const fileButton = fileInput.previousElementSibling;
+        
+        fileInput.addEventListener('change', function() {
+            if (this.files.length > 0) {
+                fileButton.innerHTML = '<i class="bi bi-check-circle me-2"></i>' + this.files[0].name;
+                fileButton.classList.remove('btn-outline-primary');
+                fileButton.classList.add('btn-success');
+            } else {
+                fileButton.innerHTML = '<i class="bi bi-cloud-arrow-up me-2"></i>Choose Image';
+                fileButton.classList.remove('btn-success');
+                fileButton.classList.add('btn-outline-primary');
+            }
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,258 @@
+/* header.css - Styles for the header component */
+
+/* Main Header Container */
+.app-header {
+    height: 60px;
+    background-color: #fff;
+    border-bottom: 1px solid #e3e6f0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 250px; /* Matches sidebar width */
+    z-index: 1020;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.035);
+    transition: all 0.3s ease;
+}
+
+/* Left section of header */
+.header-left {
+    display: flex;
+    align-items: center;
+}
+
+.sidebar-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-right: 1rem;
+    font-size: 1.5rem;
+    color: #6c757d;
+}
+
+.sidebar-toggle:hover {
+    background-color: rgba(108, 117, 125, 0.1);
+    color: #343a40;
+}
+
+.header-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #343a40;
+}
+
+/* Center search section */
+.header-search {
+    flex: 1;
+    max-width: 400px;
+    margin: 0 1rem;
+}
+
+.search-form .input-group {
+    border-radius: 50rem;
+    overflow: hidden;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.03);
+}
+
+.search-form .form-control,
+.search-form .input-group-text {
+    border-color: #e3e6f0;
+}
+
+.search-form .form-control {
+    height: 40px;
+}
+
+.search-form .form-control:focus {
+    box-shadow: none;
+    border-color: #4e73df;
+}
+
+/* Right section of header */
+.header-right {
+    display: flex;
+    align-items: center;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+}
+
+.action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-left: 0.5rem;
+    position: relative;
+    font-size: 1.25rem;
+    color: #6c757d;
+}
+
+.action-btn:hover {
+    background-color: rgba(108, 117, 125, 0.1);
+    color: #343a40;
+}
+
+.action-btn::after {
+    display: none;
+}
+
+/* User menu styles */
+.user-menu-btn {
+    display: flex;
+    align-items: center;
+    background-color: transparent;
+    border: none;
+    padding: 0.25rem 0.75rem;
+    font-weight: 500;
+    color: #343a40;
+    border-radius: 50rem;
+    transition: all 0.2s ease;
+    margin-left: 0.75rem;
+}
+
+.user-menu-btn:hover {
+    background-color: rgba(108, 117, 125, 0.1);
+}
+
+.user-menu-btn::after {
+    margin-left: 0.5rem;
+}
+
+.header-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.header-avatar-placeholder {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6c757d;
+}
+
+/* Notification badge */
+.notification-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 0.65rem;
+    padding: 0.15rem 0.35rem;
+    border-radius: 50rem;
+    border: 2px solid #fff;
+}
+
+/* Notification dropdown */
+.notification-dropdown {
+    width: 320px;
+    padding: 0;
+}
+
+.notification-list {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.dropdown-header {
+    font-weight: 600;
+    padding: 0.75rem 1rem;
+    background-color: #f8f9fa;
+}
+
+.notification-item {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #e9ecef;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.notification-item:hover {
+    background-color: #f8f9fa;
+}
+
+.notification-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    margin-right: 1rem;
+    font-size: 1.25rem;
+}
+
+.notification-info {
+    flex: 1;
+}
+
+.notification-title {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+}
+
+.notification-text {
+    color: #6c757d;
+    font-size: 0.875rem;
+    margin-bottom: 0.25rem;
+}
+
+.notification-time {
+    color: #adb5bd;
+    font-size: 0.75rem;
+}
+
+/* User dropdown details */
+.dropdown-user-details {
+    padding: 0.75rem 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.dropdown-user-avatar {
+    margin-right: 0.75rem;
+}
+
+.dropdown-user-avatar img,
+.dropdown-user-avatar .avatar-placeholder {
+    width: 48px;
+    height: 48px;
+}
+
+.dropdown-user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown-user-name {
+    font-weight: 600;
+    color: #343a40;
+}
+
+.dropdown-user-role {
+    font-size: 0.75rem;
+    color: #6c757d;
+}

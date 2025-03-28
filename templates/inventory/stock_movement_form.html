@@ -1,0 +1,274 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Record Stock Movement - Workshop Inventory{% endblock %}
+
+{% block header_title %}Record Stock Movement{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/stock_movement_form.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center mb-4">
+    <h1 class="h2">Record Stock Movement</h1>
+    <div class="btn-toolbar mb-2 mb-md-0">
+        {% if form.initial.part %}
+            <a href="{% url 'inventory:part_detail' form.initial.part.id %}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left me-1"></i> Back to Part Details
+            </a>
+        {% else %}
+            <a href="{% url 'inventory:dashboard' %}" class="btn btn-outline-secondary">
+                <i class="bi bi-arrow-left me-1"></i> Back to Dashboard
+            </a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="card movement-card border-0">
+            <div class="card-header bg-white py-3">
+                <h5 class="card-title mb-0"><i class="bi bi-arrow-left-right me-2"></i>Stock Movement Details</h5>
+            </div>
+            <div class="card-body">
+                <form method="post">
+                    {% csrf_token %}
+                    
+                    <div class="mb-4">
+                        <label for="id_part" class="form-label">Part</label>
+                        <select name="part" id="id_part" class="form-select {% if form.part.errors %}is-invalid{% endif %}" required {% if form.initial.part %}disabled{% endif %}>
+                            <option value="">----- Select a part -----</option>
+                            {% for part_option in form.fields.part.queryset %}
+                                <option value="{{ part_option.id }}" {% if form.part.value|stringformat:"i" == part_option.id|stringformat:"i" or form.initial.part.id|stringformat:"i" == part_option.id|stringformat:"i" %}selected{% endif %}>
+                                    {{ part_option.name }} ({{ part_option.part_number }})
+                                </option>
+                            {% endfor %}
+                        </select>
+                        {% if form.initial.part %}
+                            <input type="hidden" name="part" value="{{ form.initial.part.id }}">
+                        {% endif %}
+                        {% if form.part.errors %}
+                            <div class="invalid-feedback">
+                                {% for error in form.part.errors %}{{ error }}{% endfor %}
+                            </div>
+                        {% endif %}
+                        <div class="form-text">
+                            <i class="bi bi-info-circle me-1"></i>Select the part you want to adjust inventory for
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label d-block">Movement Type</label>
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <input type="radio" class="movement-type-radio" name="movement_type" id="movement_in" value="in" {% if form.movement_type.value == 'in' or not form.movement_type.value %}checked{% endif %}>
+                                <label class="movement-type-label stock-in d-block w-100" for="movement_in">
+                                    <i class="bi bi-box-arrow-in-down movement-icon text-success"></i>
+                                    <div>Stock In</div>
+                                </label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="radio" class="movement-type-radio" name="movement_type" id="movement_out" value="out" {% if form.movement_type.value == 'out' %}checked{% endif %}>
+                                <label class="movement-type-label stock-out d-block w-100" for="movement_out">
+                                    <i class="bi bi-box-arrow-up movement-icon text-danger"></i>
+                                    <div>Stock Out</div>
+                                </label>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="radio" class="movement-type-radio" name="movement_type" id="movement_adjustment" value="adjustment" {% if form.movement_type.value == 'adjustment' %}checked{% endif %}>
+                                <label class="movement-type-label adjustment d-block w-100" for="movement_adjustment">
+                                    <i class="bi bi-sliders movement-icon text-secondary"></i>
+                                    <div>Adjustment</div>
+                                </label>
+                            </div>
+                        </div>
+                        {% if form.movement_type.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.movement_type.errors %}{{ error }}{% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="id_quantity" class="form-label">Quantity</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-123"></i>
+                            </span>
+                            <input type="number" name="quantity" id="id_quantity" class="form-control {% if form.quantity.errors %}is-invalid{% endif %}" value="{{ form.quantity.value|default:'1' }}" min="1" required>
+                        </div>
+                        {% if form.quantity.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.quantity.errors %}{{ error }}{% endfor %}
+                            </div>
+                        {% endif %}
+                        <div class="form-text" id="quantity-help">
+                            <i class="bi bi-info-circle me-1"></i>
+                            For 'Stock In', enter the number of items to add. For 'Stock Out', enter the number to remove.
+                            For adjustments, use positive or negative values to adjust the current stock.
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="id_reference" class="form-label">Reference</label>
+                        <div class="input-group">
+                            <span class="input-group-text">
+                                <i class="bi bi-hash"></i>
+                            </span>
+                            <input type="text" name="reference" id="id_reference" class="form-control {% if form.reference.errors %}is-invalid{% endif %}" value="{{ form.reference.value|default:'' }}" placeholder="e.g., Invoice #, Order #, Job #">
+                        </div>
+                        {% if form.reference.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.reference.errors %}{{ error }}{% endfor %}
+                            </div>
+                        {% endif %}
+                        <div class="form-text">
+                            <i class="bi bi-info-circle me-1"></i>Optional reference for tracking purposes
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label for="id_notes" class="form-label">Notas</label>
+                        <textarea name="notes" id="id_notes" class="form-control {% if form.notes.errors %}is-invalid{% endif %}" rows="3" placeholder="Add any additional information about this movement">{{ form.notes.value|default:'' }}</textarea>
+                        {% if form.notes.errors %}
+                            <div class="invalid-feedback d-block">
+                                {% for error in form.notes.errors %}{{ error }}{% endfor %}
+                            </div>
+                        {% endif %}
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end mt-4">
+                        {% if form.initial.part %}
+                            <a href="{% url 'inventory:part_detail' form.initial.part.id %}" class="btn btn-outline-secondary me-md-2">Cancelar</a>
+                        {% else %}
+                            <a href="{% url 'inventory:dashboard' %}" class="btn btn-outline-secondary me-md-2">Cancelar</a>
+                        {% endif %}
+                        <button type="submit" class="btn btn-primary">
+                            <i class="bi bi-save me-1"></i>Record Movement
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-5">
+        <!-- Part information card -->
+        <div class="card info-card border-0 mb-4" id="part-info-card">
+            <div class="card-body p-4">
+                <h5 class="card-title mb-3">
+                    <i class="bi bi-info-circle me-2"></i>Part Information
+                </h5>
+                <div id="part-info-content">
+                    {% if form.initial.part %}
+                        <div class="text-center mb-3">
+                            {% if form.initial.part.image %}
+                                <img src="{{ form.initial.part.image.url }}" alt="{{ form.initial.part.name }}" class="part-image mb-3">
+                            {% else %}
+                                <div class="part-image-placeholder mb-3">
+                                    <i class="bi bi-tools part-placeholder-icon"></i>
+                                </div>
+                            {% endif %}
+                            <h5>{{ form.initial.part.name }}</h5>
+                            <p class="text-muted mb-0"><code>{{ form.initial.part.part_number }}</code></p>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <div class="text-muted small">Current Stock</div>
+                                    <div class="fs-5 {% if form.initial.part.is_low_stock %}text-danger{% else %}text-success{% endif %} fw-bold">
+                                        {{ form.initial.part.stock_quantity }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <div class="text-muted small">Minimum Stock</div>
+                                    <div class="fs-5">{{ form.initial.part.minimum_stock }}</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <div class="text-muted small">Unit Price</div>
+                                    <div class="fs-5">${{ form.initial.part.unit_price }}</div>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="mb-3">
+                                    <div class="text-muted small">Category</div>
+                                    <div class="fs-5">{{ form.initial.part.category.name }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="text-muted small">Storage Location</div>
+                            <div>{{ form.initial.part.location|default:"Not specified" }}</div>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-4">
+                            <i class="bi bi-boxes text-muted mb-2" style="font-size: 3rem;"></i>
+                            <p class="mb-0">Select a part to see its details</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Movement preview card -->
+        <div class="card info-card border-0">
+            <div class="card-body p-4">
+                <h5 class="card-title mb-3">
+                    <i class="bi bi-calculator me-2"></i>Stock Movement Preview
+                </h5>
+                <div id="movement-preview">
+                    {% if form.initial.part %}
+                        <div class="alert alert-info">
+                            <i class="bi bi-info-circle me-2"></i>
+                            Fill in the movement details to see a preview of the inventory change.
+                        </div>
+                        
+                        <div class="row text-center mt-4 mb-3">
+                            <div class="col-4">
+                                <div class="text-muted small">Current Stock</div>
+                                <div class="fs-5 fw-bold" id="current-stock">{{ form.initial.part.stock_quantity }}</div>
+                            </div>
+                            <div class="col-4">
+                                <div class="text-center">
+                                    <i class="bi bi-arrow-right fs-2 text-primary"></i>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="text-muted small">New Stock</div>
+                                <div class="fs-5 fw-bold" id="new-stock">{{ form.initial.part.stock_quantity }}</div>
+                            </div>
+                        </div>
+                        
+                        <div class="d-none" id="stock-warnings">
+                            <div class="alert alert-warning d-none" id="negative-stock-warning">
+                                <i class="bi bi-exclamation-triangle me-2"></i>
+                                This movement will result in a negative stock quantity.
+                            </div>
+                            <div class="alert alert-danger d-none" id="low-stock-warning">
+                                <i class="bi bi-exclamation-triangle me-2"></i>
+                                This movement will result in stock below the minimum level.
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="text-center py-4">
+                            <i class="bi bi-arrow-left-right text-muted mb-2" style="font-size: 3rem;"></i>
+                            <p class="mb-0">Select a part to see movement preview</p>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/stock_movement_form.js' %}"></script>
+{% endblock %}

@@ -1,0 +1,84 @@
+/* stock_movement_form.css - Styles for stock movement form */
+
+.movement-card {
+    border-radius: 0.75rem;
+    overflow: hidden;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.info-card {
+    border-radius: 0.75rem;
+    background-color: #f8f9fa;
+    transition: all 0.3s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.part-image {
+    max-height: 150px;
+    width: 100%;
+    object-fit: contain;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 0.5rem;
+}
+
+.part-image-placeholder {
+    height: 150px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border-radius: 0.5rem;
+}
+
+.part-placeholder-icon {
+    font-size: 3rem;
+    color: #adb5bd;
+}
+
+.movement-type-radio {
+    display: none;
+}
+
+.movement-type-label {
+    cursor: pointer;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 2px solid #dee2e6;
+    text-align: center;
+    transition: all 0.2s ease;
+}
+
+.movement-type-label:hover {
+    background-color: #f8f9fa;
+}
+
+.movement-type-radio:checked + .movement-type-label {
+    border-color: #0d6efd;
+    background-color: rgba(13, 110, 253, 0.1);
+}
+
+.movement-type-radio:checked + .movement-type-label.stock-in {
+    border-color: #198754;
+    background-color: rgba(25, 135, 84, 0.1);
+}
+
+.movement-type-radio:checked + .movement-type-label.stock-out {
+    border-color: #dc3545;
+    background-color: rgba(220, 53, 69, 0.1);
+}
+
+.movement-type-radio:checked + .movement-type-label.adjustment {
+    border-color: #6c757d;
+    background-color: rgba(108, 117, 125, 0.1);
+}
+
+.movement-icon {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}

@@ -148,7 +148,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'authentication.WorkshopUser'
 
-LOGIN_URL = 'authentication:login'
+LOGIN_REDIRECT_URL = 'inventory:dashboard'
+
+
 LOGIN_REDIRECT_URL = 'inventory:dashboard'
 LOGOUT_REDIRECT_URL = 'authentication:login'
 

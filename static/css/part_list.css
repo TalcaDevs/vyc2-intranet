@@ -1,0 +1,47 @@
+/* part_list.css - Styles for parts list page */
+
+.search-bar {
+    background-color: #f8f9fa;
+    border-radius: 0.75rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+}
+
+.part-card {
+    transition: all 0.3s ease;
+    height: 100%;
+}
+
+.part-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+}
+
+.part-image {
+    height: 150px;
+    object-fit: contain;
+    background-color: #f8f9fa;
+}
+
+.part-image-placeholder {
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    color: #6c757d;
+}
+
+.part-placeholder-icon {
+    font-size: 3rem;
+}
+
+.part-grid .card-footer {
+    background-color: transparent;
+}
+
+.view-options .btn-group .btn.active {
+    background-color: #0d6efd;
+    color: white;
+}

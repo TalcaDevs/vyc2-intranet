@@ -1,43 +1,86 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}Login - Workshop Inventory{% endblock %}
+{% block title %}Login - Vyc Ingeniería{% endblock %}
 
-{% block content %}
-<div class="row justify-content-center">
-    <div class="col-md-6 col-lg-4">
-        <div class="card shadow-sm mt-5">
-            <div class="card-header bg-primary text-white text-center py-3">
-                <h4 class="mb-0">Workshop Inventory</h4>
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/auth.css' %}">
+{% endblock %}
+
+{% block auth_content %}
+<div class="auth-wrapper">
+    <div class="auth-container">
+        <div class="auth-logo-container">
+            <div class="auth-logo">
+                <i class="bi bi-tools"></i>
             </div>
-            <div class="card-body p-4">
-                <h5 class="card-title text-center mb-4">Log In</h5>
+            <h2 class="auth-title">Workshop Inventory</h2>
+            <p class="auth-subtitle">Inventory Management System</p>
+        </div>
+        
+        <div class="auth-card">
+            <div class="auth-card-header">
+                <h4>Welcome Back</h4>
+                <p>Sign in to continue to Dashboard</p>
+            </div>
+            
+            <div class="auth-card-body">
+                {% if form.errors %}
+                    <div class="auth-alert">
+                        <i class="bi bi-exclamation-triangle-fill"></i>
+                        <span>Your username and password didn't match. Please try again.</span>
+                    </div>
+                {% endif %}
                 
-                <form method="post" novalidate>
+                <form method="post" novalidate class="auth-form">
                     {% csrf_token %}
                     
-                    {% if form.errors %}
-                        <div class="alert alert-danger">
-                            Your username and password didn't match. Please try again.
+                    <div class="form-group">
+                        <label for="id_username">Username</label>
+                        <div class="input-group">
+                            <span class="input-icon">
+                                <i class="bi bi-person"></i>
+                            </span>
+                            <input type="text" name="username" id="id_username" class="form-control" autofocus required>
                         </div>
-                    {% endif %}
-                    
-                    <div class="mb-3">
-                        <label for="id_username" class="form-label">Username</label>
-                        <input type="text" name="username" id="id_username" class="form-control" autofocus required>
                     </div>
                     
-                    <div class="mb-4">
-                        <label for="id_password" class="form-label">Password</label>
-                        <input type="password" name="password" id="id_password" class="form-control" required>
+                    <div class="form-group">
+                        <div class="d-flex justify-content-between">
+                            <label for="id_password">Password</label>
+                            <a href="#" class="auth-forgot-link">Forgot password?</a>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-icon">
+                                <i class="bi bi-lock"></i>
+                            </span>
+                            <input type="password" name="password" id="id_password" class="form-control" required>
+                            <button type="button" class="password-toggle" onclick="togglePassword()">
+                                <i class="bi bi-eye"></i>
+                            </button>
+                        </div>
                     </div>
                     
-                    <div class="d-grid">
-                        <button type="submit" class="btn btn-primary">Log In</button>
+                    <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="remember-me">
+                        <label class="form-check-label" for="remember-me">Remember me</label>
                     </div>
+                    
+                    <button type="submit" class="auth-button">
+                        <span>Sign In</span>
+                        <i class="bi bi-arrow-right"></i>
+                    </button>
                 </form>
             </div>
         </div>
+        
+        <p class="auth-copyright">
+            &copy; {% now "Y" %} Workshop Inventory Management System
+        </p>
     </div>
 </div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/auth.js' %}"></script>
 {% endblock %}
